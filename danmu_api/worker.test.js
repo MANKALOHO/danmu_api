@@ -140,6 +140,23 @@ test('worker.js API endpoints', async (t) => {
     assert.equal(res.status, 200);
   });
 
+  await t.test('FongMi routes should accept the new /api/v2/fongmi alias and preserve old paths', async () => {
+    Globals.init({});
+
+    for (const path of [
+      '/api/v2/fongmi',
+      '/api/v2/fongmi/danmaku',
+      '/danmaku'
+    ]) {
+      const req = new MockRequest(urlPrefix + path, { method: 'GET' });
+      const res = await handleRequest(req);
+      const body = await parseResponse(res);
+
+      assert.equal(res.status, 200, `expected 200 for ${path}`);
+      assert.deepEqual(body, [], `expected empty array for ${path}`);
+    }
+  });
+
   await t.test('HandlerFactory should support Hugging Face Spaces', async () => {
     const handler = await HandlerFactory.getHandler('huggingface');
 

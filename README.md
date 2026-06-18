@@ -58,8 +58,9 @@ LogVar 弹幕 API 服务器
   - `GET /api/v2/comment/:commentId?format=json&duration=true`：获取指定弹幕评论；当 `duration=true` 且返回 JSON 时，会额外附带 `videoDuration` 字段，优先返回源站时长，拿不到时返回 `0`。
   - `GET /api/v2/comment?url=${videoUrl}&format=json`：通过视频URL直接获取弹幕（兼容第三方弹幕服务器格式）。
   - `POST /api/v2/segmentcomment?format=json`：通过comment接口返回体中的Segment类JSON数据获取单独一个分片的弹幕数据。
-  - `GET /api/v2/fongmi/danmaku?name={name}&episode={episode}`：FengMi影视api。
-  - `GET /danmaku/api/v2/fongmi/danmaku?name={name}&episode={episode}`：兼容FengMi影视api短路径。
+  - `GET /api/v2/fongmi?name={name}&episode={episode}`：FongMi 影视自定义弹幕接口（推荐）。
+  - `GET /api/v2/fongmi/danmaku?name={name}&episode={episode}`：兼容 FongMi 影视接口旧写法。
+  - `GET /danmaku/api/v2/fongmi/danmaku?name={name}&episode={episode}`：兼容 FongMi 影视短路径旧写法。
   - `GET /api/logs`：获取最近的日志（最多 500 行，格式为 `[时间戳] 级别: 消息`）。
   - `GET /api/cache/animes`：获取最近的 animes 缓存。
 - **弹幕格式输出**：支持 JSON 和 XML 两种格式输出，通过以下方式配置：
@@ -337,7 +338,7 @@ LogVar 弹幕 API 服务器
 
 以`senplayer`为例：
 1. 获取到部署之后的API地址，如 `http://192.168.1.7:9321/87654321` ，其中`87654321`是默认token（默认为87654321的情况下也可以不带token），如果有自定义环境变量TOKEN，请替换成相应的token；API地址也可直接在UI界面上点击API端点直接复制
-2. 将API地址填入自定义弹幕API，在`设置 - 弹幕设置 - 自定义弹幕API`
+2. 将API地址填入自定义弹幕API，在`设置 - 弹幕设置 - 自定义弹幕API`。推荐直接填 `http://{ip}:9321/{TOKEN}/api/v2/fongmi`，也兼容 `.../api/v2/fongmi/danmaku`。
 3. 播放界面点击`弹幕按钮 - 搜索弹幕`，选择你的弹幕API，会根据标题进行搜索，等待一段时间，选择剧集就行。
 <img src="https://i.mji.rip/2025/09/14/1dae193008f23e507d3cc3733a92f0a1.jpeg" style="width:400px" />
 <img src="https://i.mji.rip/2025/09/14/506fd7810928088d7450be00f67f27e6.png" style="width:400px" />

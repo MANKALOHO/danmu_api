@@ -30,7 +30,7 @@ async function handleRequest(req, env, deployPlatform, clientIp, ctx) {
   const method = req.method;
 
   //  Bangumi Data 辅助函数，用于判断数据更新
-  const isDataDependentRequest = path.includes('/search') || path.includes('/match') || path.includes('/danmaku');
+  const isDataDependentRequest = path.includes('/search') || path.includes('/match') || path.includes('/danmaku') || path.includes('/fongmi');
 
   if (globals.useBangumiData) {
       await initBangumiData(deployPlatform, isDataDependentRequest, ctx);
@@ -104,6 +104,7 @@ async function handleRequest(req, env, deployPlatform, clientIp, ctx) {
     '/api/v2/search/anime',
     '/api/v2/match',
     '/api/v2/search/episodes',
+    '/api/v2/fongmi',
     '/api/v2/fongmi/danmaku',
     '/danmaku',
     '/api/v2/bangumi',
@@ -315,6 +316,11 @@ async function handleRequest(req, env, deployPlatform, clientIp, ctx) {
   // GET /api/v2/search/episodes
   if (path === "/api/v2/search/episodes" && method === "GET") {
     return searchEpisodes(url);
+  }
+
+  // GET|POST /api/v2/fongmi
+  if (path === "/api/v2/fongmi" && (method === "GET" || method === "POST")) {
+    return getFongmiDanmaku(url, req);
   }
 
   // GET|POST /api/v2/fongmi/danmaku
