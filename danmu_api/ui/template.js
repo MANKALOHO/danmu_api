@@ -339,8 +339,18 @@ export const HTML_TEMPLATE = /* html */ `
         </div>
     </div>
 
-    <!-- 页脚（仅保留结构，内容已清空） -->
+    <!-- 页脚（内容已清空） -->
     <footer class="footer"></footer>
+
+    <script>
+        ${mainJsContent}
+        ${previewJsContent}
+        ${logviewJsContent}
+        ${apitestJsContent}
+        ${pushDanmuJsContent}
+        ${requestRecordsJsContent}
+        ${systemSettingsJsContent}
+    </script>
 </body>
 </html>
 `;
