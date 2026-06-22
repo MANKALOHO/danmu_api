@@ -338,6 +338,9 @@ export const HTML_TEMPLATE = /* html */ `
             </form>
         </div>
     </div>
+
+    <!-- 页脚（仅保留结构，内容已清空） -->
+    <footer class="footer"></footer>
 </body>
 </html>
 `;
